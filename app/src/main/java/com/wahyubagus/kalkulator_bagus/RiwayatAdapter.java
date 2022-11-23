@@ -33,6 +33,8 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
         LayoutInflater inflater= LayoutInflater.from(context);
         ViewHolder holder= new ViewHolder(inflater.inflate(R.layout.riwayat_layout, parent, false));
 
+
+
         return holder;
     }
 
@@ -44,6 +46,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
 
     @Override
     public int getItemCount(){
+
         return listRiwayat.size();
     }
 
@@ -62,17 +65,25 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
                 AlertDialog.Builder alert= new AlertDialog.Builder(context);
                 alert.setTitle("Hapus Riwayat")
                         .setMessage("Ingin hapus riwayat?")
-                        .setPositiveButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel())
-                        .setNegativeButton("Yes", (dialogInterface, i) -> {
-                            String id = listRiwayat.get(p).getId();
+                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String id = listRiwayat.get(p).getId();
 
-                            sharedPreferences.edit().remove(id).commit();
+                                sharedPreferences.edit().remove(id).commit();
 
-                            for (int j=0;j<listRiwayat.size();j++){
-                                if (id.equalsIgnoreCase(listRiwayat.get(j).getId())){
-                                    listRiwayat.remove(j);
-                                    notifyItemChanged(j);
-                                    notifyItemRangeChanged(j, listRiwayat.size());
+                                for (int j=0;j<listRiwayat.size();j++){
+                                    if (id.equalsIgnoreCase(listRiwayat.get(j).getId())) {
+                                        listRiwayat.remove(j);
+                                        notifyItemChanged(j);
+                                        notifyItemRangeChanged(j, listRiwayat.size());
+                                    }
                                 }
                             }
                         });

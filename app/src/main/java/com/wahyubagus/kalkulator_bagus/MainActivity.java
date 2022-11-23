@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             recRiwayat.setAdapter(new RiwayatAdapter(listRiwayat, this, preferences));
             recRiwayat.setLayoutManager(new LinearLayoutManager(this));
             listRiwayat.add(new Riwayat(no,String.valueOf(rwyt)));
+
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("gagal tambah array");
@@ -123,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                     saveToShared(idRwyt, riwayat);
                 }
                 id++;
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                linearLayoutManager.setReverseLayout(true);
+                linearLayoutManager.setStackFromEnd(true);
+                recRiwayat.setLayoutManager(linearLayoutManager);
+
             }catch (Exception e){
                 e.printStackTrace();
                 txtHasil.setText("gagal");
