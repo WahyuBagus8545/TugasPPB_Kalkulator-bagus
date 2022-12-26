@@ -81,6 +81,7 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
                                 for (int j=0;j<listRiwayat.size();j++){
                                     if (id.equalsIgnoreCase(listRiwayat.get(j).getId())) {
                                         listRiwayat.remove(j);
+                                        notifyItemRemoved(j);
                                         notifyItemChanged(j);
                                         notifyItemRangeChanged(j, listRiwayat.size());
                                     }
